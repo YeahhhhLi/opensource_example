@@ -4,3 +4,4 @@ build_cmake/build/[^\.]*
 *pb.h
 *pb.cc
 
+.vscode
