@@ -1,0 +1,18 @@
+syntax="proto2";
+option cc_generic_services = true;
+package testServer;
+
+message EchoRequest {
+    optional uint64 logid = 1;
+    optional string key = 2;
+};
+
+message EchoResponse {
+    optional int32 err_no = 1;
+    optional string key = 2;
+    optional string value = 3;
+};
+
+service EchoService {
+    rpc Echo(EchoRequest) returns (EchoResponse);
+}

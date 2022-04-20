@@ -8,9 +8,11 @@ PROJECT(Test) # 不指定工程采用的语言，表示 默认支持所有语言
 # 安裝需要的包 find_package 默認 先後從 ${CMAKE_MODULE_PATH} 和 ${CMAKE_ROOT} 中查找
 message(STATUS "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}")
 message(STATUS "CMAKE_ROOT = ${CMAKE_ROOT}")
+
 find_package(Arrow REQUIRED)
 find_package(Parquet REQUIRED)
 find_package(Protobuf REQUIRED)
+
 # if (Protobuf_FOUND)
 #     #打印相关的信息
 #     message("Protobuf_FOUND:${Protobuf_FOUND}")
