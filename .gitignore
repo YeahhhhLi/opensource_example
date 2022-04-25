@@ -2,6 +2,7 @@ bazel-*
 
 build_cmake/build/[^\.]*
 build_cmake/import_external_project/build/[^\.]*
+*/build/[^\.]*
 *pb.h
 *pb.cc
 

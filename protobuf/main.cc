@@ -17,7 +17,7 @@ void PrintDescription(const MessageT* p_msg) {
   std::cout << "==================descriptor attribute==================" << std::endl;
   std::cout << "name[" << p_descriptor->name() << "]" << std::endl;
   std::cout << "full_name[" << p_descriptor->full_name() << "]" << std::endl;
-  std::cout << "DebugString[" << p_descriptor->DebugString() << "]" << std::endl;
+  std::cout << "field_count[" << p_descriptor->field_count() << "]" << std::endl;
 
   // ============== file descriptor attribute ======================= //
   const FileDescriptor* p_file_desc = p_descriptor->file();

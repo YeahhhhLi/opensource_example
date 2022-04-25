@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+import "proto/common/common.proto";
+
+package param.proto;
+
+message Params {
+    optional common.proto.CommonField common_filed = 1;
+}
