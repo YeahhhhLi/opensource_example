@@ -16,6 +16,6 @@ cc_binary(
     deps = [
         ":hello-greet",
         "//lib:hello-time",
-        "@my_concurrentqueue//:concurrentqueue"
+        "@concurrent_queue"
     ],
 )
