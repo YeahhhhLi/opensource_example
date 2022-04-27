@@ -10,16 +10,12 @@ cc_library(
     hdrs = ["hello-greet.h"],
 )
 
-# cc_import(
-#     name = "static_lib",
-#     static_library = "libarrow.a",
-# )
-
 cc_binary(
     name = "hello-world",
     srcs = ["hello-world.cc"],
     deps = [
         ":hello-greet",
-        "//lib:hello-time"
+        "//lib:hello-time",
+        "@my_concurrentqueue//:concurrentqueue"
     ],
 )

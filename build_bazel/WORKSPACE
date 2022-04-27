@@ -1,0 +1,24 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# http_archive(
+#     name = "my_concurrentqueue",
+#     urls = [
+#         "https://github.com/YeahhhhLi/concurrentqueue/archive/refs/tags/v1.1.0.tar.gz"
+#     ],
+#     build_file = "conqueue.BUILD",
+# )
+
+
+new_local_repository(
+    name = "thirdparty_concurrentqueue",
+    path = "./third-party/concurrentqueue",
+    build_file = "conqueue.BUILD",
+)
+
+# new_http_archive(
+#     name = "my_concurrentqueue",
+#     urls = [
+#         "https://github.com/YeahhhhLi/concurrentqueue/archive/refs/tags/v1.1.0.tar.gz"
+#     ],
+#     build_file = "conqueue.BUILD",
+# )

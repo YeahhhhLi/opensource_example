@@ -1,0 +1,46 @@
+# The coinflip example combines the use of a script result,
+# along with conditionals, to take a dynamic path in the
+# workflow. In this example, depending on the result of the
+# first step, 'flip-coin', the template will either run the
+# 'heads' step or the 'tails' step.
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: data-offline-process-
+spec:
+  entrypoint: data-offline-process
+  templates:
+    - name: data-offline-process
+      steps:
+      - - name: data-persistence
+          template: persistence
+      - - name: data-upload-cloud
+          template: upload-cloud
+      - - name: data-preprocess
+          template: preprocess
+      - - name: data-mining
+          template: data-mining
+          
+    - name: persistence
+      container:
+        image: alpine:3.6
+        command: [sh, -c]
+        args: ["echo \"data persistency...\" && sleep 1m"]
+
+    - name: upload-cloud
+      container:
+        image: alpine:3.6
+        command: [sh, -c]
+        args: ["echo \"data upload to cloud...\" && sleep 2m"]
+    
+    - name: preprocess
+      container:
+        image: alpine:3.6
+        command: [sh, -c]
+        args: ["echo \"data preprocess...\" && sleep 3m"]
+    
+    - name: data-mining
+      container:
+        image: alpine:3.6
+        command: [sh, -c]
+        args: ["echo \"data mining...\" && sleep 5m"]
