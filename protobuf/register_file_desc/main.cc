@@ -7,31 +7,39 @@
 #include <google/protobuf/descriptor.pb.h>
 #include <google/protobuf/message.h>
 #include <google/protobuf/util/json_util.h>
-#include <proto/params/param.pb.h>
+#include "proto/desc/desc.pb.h"
 
-using MessageT = google::protobuf::Message;
+using Message = google::protobuf::Message;
 using Descriptor = google::protobuf::Descriptor;
 using FileDescriptor = google::protobuf::FileDescriptor;
 using DescriptorPool = google::protobuf::DescriptorPool;
 
-void WriteProtoDesc(const FileDescriptor* p_file_descriptor) {
-  for (int i = 0; i < p_file_descriptor->dependency_count(); ++i) {
-    WriteProtoDesc(p_file_descriptor->dependency(i));
+void RegisterDesc(const desc::proto::DescProto& desc) {
+  for (int i = 0; i < desc.dependency_count(); ++i) {
+    RegisterDesc(desc.dependency(i));
   }
   google::protobuf::FileDescriptorProto file_desc_proto;
-  p_file_descriptor->CopyTo(&file_desc_proto);
-  std::ofstream ofs("./descriptor.binary", std::ios::out | std::ios::binary | std::ios::app);
-  if (!file_desc_proto.SerializeToOstream(&ofs)) {
-    std::cout << "Fail to write file desc proto\n";
+  if (!file_desc_proto.ParseFromString(desc.desc())) {
+    std::cout << "Fail to parse file desc proto\n";
     return;
   }
+  auto pool = DescriptorPool();
+  ErrorCollector ec;
+  auto file_desc = pool.BuildFileCollectingErrors(file_desc_proto, &ec);
+  if (!file_desc) {
+    std::cout << "Fail to Build File" << std::endl;
+  }
+  return ;
 }
 
 int main(int argc, char** argv) {	
   param::proto::Params params;
-  {
-    std::ofstream ofs("./descriptor.binary", std::ios::out | std::ios::trunc);
+  desc::proto::DescProto desc;
+  std::ifstream ifs("./descriptor.binary", std::ios::in | std::ios::binary);
+  if (!desc.ParseFromIstream(&ifs)) {
+    std::cout << "Fail to read file desc proto\n";
+    return -1;
   }
-  WriteProtoDesc(params.descriptor()->file());
+  RegisterDesc(desc);
   return EXIT_SUCCESS;
 }

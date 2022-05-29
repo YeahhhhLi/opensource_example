@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package desc.proto;
+
+message DescProto {
+    optional bytes desc = 1;
+    repeated DescProto dependency = 2;
+}
