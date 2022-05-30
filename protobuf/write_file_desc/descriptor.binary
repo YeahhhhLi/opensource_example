@@ -1,0 +1,16 @@
+
+Ì
+proto/common/common.protocommon.proto"Y
+CommonField%
+type (2.common.proto.TopicType#
+body (2.common.proto.Payload"
+Mock
+mock_int ("u
+Payload
+val_int (
+val_str (	#
+val_msg (2.common.proto.Mock#
+val_arr (2.common.proto.Mock*5
+	TopicType
+TOPIC_PLANNING
+TOPIC_PERCEPTION
