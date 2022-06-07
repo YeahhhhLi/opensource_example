@@ -9,6 +9,7 @@
 #include <google/protobuf/dynamic_message.h>
 #include <google/protobuf/util/json_util.h>
 #include "proto/desc/desc.pb.h"
+#include "proto/common/common.pb.h"
 
 using Message = google::protobuf::Message;
 using Descriptor = google::protobuf::Descriptor;
@@ -30,7 +31,7 @@ void RegisterDesc(const desc::proto::DescProto& desc) {
   // std::cout << "==========file desc proto:\n" << file_desc_proto.Utf8DebugString() << std::endl; 
   auto file_desc = pool_g.BuildFileCollectingErrors(file_desc_proto, nullptr);
   if (!file_desc) {
-    std::cout << "Fail to Build File" << std::endl;
+    std::cout << "Fail to Build File, name[" << file_desc->name() << "]" << std::endl;
   } else {
     std::cout << "Succ to build file, name[" << file_desc->name() << "]" << std::endl;
   }
@@ -39,6 +40,13 @@ void RegisterDesc(const desc::proto::DescProto& desc) {
 
 int main(int argc, char** argv) {	
   desc::proto::DescProto desc;
+  // common::proto::Payload payload;
+  // auto file_descriptor = payload.GetDescriptor()->file();
+  // google::protobuf::FileDescriptorProto file_proto;
+  // file_descriptor->CopyTo(&file_proto);
+  // if (pool_g.BuildFileCollectingErrors(file_proto, nullptr) == nullptr) {
+  //   std::cout << "Fail to build file 1111";
+  // }
   // 注册 message
   {
     std::ifstream ifs("../../write_file_desc/descriptor.binary", std::ios::in | std::ios::binary);
@@ -73,7 +81,7 @@ int main(int argc, char** argv) {
       std::cout << "Fail to parse from istream" << std::endl;
       return -1;
     }
-    std::cout << "succ pasre proto, debug_str: \n" << msg_ptr->Utf8DebugString() << std::endl; 
+    std::cout << "succ pasre proto, debug_str: \n" << msg_ptr->ShortDebugString() << std::endl; 
   }
 
   return EXIT_SUCCESS;

@@ -37,6 +37,9 @@ int main(int argc, char** argv) {
   }
   payload.set_val_int(123);
   payload.set_val_str("234");
+  payload.mutable_val_msg()->set_mock_int(345);
+  payload.add_val_arr()->set_mock_int(666);
+  payload.add_val_arr()->set_mock_int(777);
   {
     std::ofstream ofs("../proto.binary", std::ios::out | std::ios::binary);
     if (!payload.SerializeToOstream(&ofs)) {
