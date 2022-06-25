@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+package common.proto;
+
+enum TopicType {
+  TOPIC_PLANNING = 1;
+  TOPIC_PERCEPTION = 2;
+}
+
+message CommonField {
+  optional TopicType type = 1;  // 数据类型
+  optional Payload body = 2;
+}
+
+
+message Mock {
+    optional int32 mock_int = 1;
+}
+
+message Payload {
+    optional int32 val_int = 1;
+    optional string val_str = 2;
+    optional Mock val_msg = 3;
+    repeated Mock val_arr = 4;
+}
