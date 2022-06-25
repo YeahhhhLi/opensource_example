@@ -84,6 +84,7 @@ def main(record_file:str):
         print("Amsg No.[%d] header[%s] body[%s]" 
             % (index, json_format.MessageToJson(amsg["header"]), 
                       json_format.MessageToJson(amsg["body"])))
+        index += 1
 
     
 if __name__ == "__main__":
