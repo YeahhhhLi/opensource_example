@@ -3,8 +3,7 @@ syntax = "proto2";
 package aos.record.proto;
 // Next ID: 3
 message ProtoDesc {
-  optional bytes cc_proto = 1;
-  optional bytes py_proto = 2;
+  optional bytes description = 1;
 }
 // Next ID: 4
 message TopicMsgDesc {

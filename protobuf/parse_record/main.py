@@ -31,7 +31,6 @@ def parseAmsgHeader(amsgs_bytes:bytes) -> tuple:
     if len(amsgs_bytes) != kMsgHeaderSize:
         print("Fail to parseAmsgHeader, invalid header size[%d]" % (len(amsgs_bytes)))
         sys.exit(1)
-    print("=======amgs_bytes[%s]" % amsgs_bytes)
     if amsgs_bytes[:4] != kMsgSignal:
         print("Fail to parseAmsgHeader, invalid header signal[%s]" % (amsgs_bytes[:4]))
         sys.exit(1)
@@ -43,13 +42,12 @@ def register(desc_proto:DescProto):
     for dep_desc in desc_proto.dependency:
         register(dep_desc)
     file_desc_proto = descriptor_pb2.FileDescriptorProto()
-    file_desc_proto.ParseFromString(desc_proto.desc_test)
+    file_desc_proto.ParseFromString(desc_proto.desc)
     pool.Add(file_desc_proto)
 
 def ParseAmsg(message_type:str, amgs:list, f:TextIOWrapper):
     amsg_header = f.read(kMsgHeaderSize)
     while len(amsg_header) > 0:
-        print("file_pos[%d]" % f.tell())
         header_size, body_size = parseAmsgHeader(amsg_header)
         amsg = {}
         header = Header()
@@ -74,7 +72,7 @@ def main(record_file:str):
         % (topic_msg_desc.topic_name, topic_msg_desc.message_type, header_size))
     # step2: register proto
     desc_proto = DescProto()
-    desc_proto.ParseFromString(topic_msg_desc.proto_desc.cc_proto)
+    desc_proto.ParseFromString(topic_msg_desc.proto_desc.description)
     register(desc_proto)
 
     # step3: parse msg header
@@ -87,6 +85,7 @@ def main(record_file:str):
         body_str = str(json_format.MessageToDict(amsg["body"]))
         print("Amsg No.[%d] header[%s] body[%s]" 
             % (index, header_str, body_str))
+        index += 1
 
     
 if __name__ == "__main__":
