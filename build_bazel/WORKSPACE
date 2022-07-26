@@ -9,8 +9,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
  
 
 # import with http archive
-load("//third_party/concurrent_queue:concurrent_queue_workspace.bzl", concurrentqueue = "repo")
-concurrentqueue()
+# load("//third_party/concurrent_queue:concurrent_queue_workspace.bzl", concurrentqueue = "repo")
+# concurrentqueue()
 
 
 
