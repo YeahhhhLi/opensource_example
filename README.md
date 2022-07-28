@@ -1,5 +1,5 @@
 # 两种编译模式 bazel  cmake
-## bazel
+## bazel 
 
 ```bash
     cd build_bazel
