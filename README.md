@@ -1,4 +1,4 @@
-# 两种编译模式 bazel  cmake
+# 两种编译模式 bazel cmake
 ## bazel
 
 ```bash
